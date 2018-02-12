@@ -1,0 +1,26 @@
+name: Arma3
+description: Carefully and biologically produced Arma 3 sqf training site
+keywords: SQF, Arma, Arma 3, Bohemia, Interactive
+
+productionUrl: http://localhost:4000
+
+markdown: kramdown
+kramdown:
+  input: GFM
+
+timezone: UTC
+
+excerpt_separator: <!--more-->
+
+highlighter: rouge
+
+safe: true
+lsi: false
+
+exclude: [src, .editorconfig, .gitignore, Gemfile, Gemfile.lock, README.md]
+
+plugins:
+  - jekyll-redirect-from
+
+whitelist:
+  - jekyll-redirect-from
