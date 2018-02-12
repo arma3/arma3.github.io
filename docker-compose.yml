@@ -1,0 +1,14 @@
+version: "3.2"
+
+services:
+  docs:
+    container_name: arma3_github_io_jekyll
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - JEKYLLARGS=--incremental --force_polling
+    ports:
+      - "4000:4000"
+    volumes:
+      - ./:/usr/src/app

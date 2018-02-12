@@ -1,0 +1,7 @@
+<nav>
+    <ul>
+        {% assign pages_list = site.pages | sort: "order" %}
+        {% assign group = 'mainNav' %}
+        {% include pages_list %}
+    </ul>
+</nav>
