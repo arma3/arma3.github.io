@@ -7,3 +7,9 @@ sitemap:
 ---
 
 <h1>arma3.github.io</h1>
+
+```js
+
+private _a = "test";
+
+```
