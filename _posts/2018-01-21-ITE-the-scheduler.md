@@ -48,4 +48,4 @@ We have one cycle per frame. So at 50FPS this means any one of our 50 scripts wi
 Meaning if you use [sleep](https://community.bistudio.com/wiki/sleep) or [uiSleep](https://community.bistudio.com/wiki/uiSleep) and try to sleep for half a second, you will never get the expected result of half a second, because the engine simply only checks once a second if you are done with sleeping yet.
 Even if you sleep for 1 second and you are so unlucky that the scheduler checks while your sleep timer is at 0.0001 seconds left, your script will be skipped and only executed after the scheduler executes your script again which will be about a second later.
 
-This ofcause get's worse the more scheduled scripts you have and the lower your FPS are.
+This of cause get's worse the more scheduled scripts you have and the lower your FPS are.
