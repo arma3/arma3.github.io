@@ -9,7 +9,7 @@ category: ITE
 Now dedmen just needs to get some good writing skills.
 
 
-When you [spawn](https://community.bistudio.com/wiki/spawn), [execVM](https://community.bistudio.com/wiki/execVM),[exec](https://community.bistudio.com/wiki/execVM) or [execFSM](https://community.bistudio.com/wiki/execFSM) a script it is added to a internal list of scheduled scripts.
+When you [spawn](https://community.bistudio.com/wiki/spawn), [execVM](https://community.bistudio.com/wiki/execVM), [exec](https://community.bistudio.com/wiki/execVM) or [execFSM](https://community.bistudio.com/wiki/execFSM) a script it is added to an internal list of scheduled scripts.
 
 
 There is one scheduler cycle per frame (`siScr` in Engine Profiler (New article to be linked here after it's written)) which happens right after the EachFrame event handlers. (Maybe future article about that)
