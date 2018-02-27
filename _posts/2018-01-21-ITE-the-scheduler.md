@@ -26,11 +26,11 @@ The engine loops through our sorted list, executing the scripts in order.
 
 Each script type is handled a little differently:
 
-- A SQS script will execute until it: is done, suspends, or after it executed for a total of 3ms. If the 3ms limit is reached it will be forced to suspend.
+- An SQS script will execute until it: is done, suspends, or after it executed for a total of 3ms. If the 3ms limit is reached it will be forced to suspend.
 
-- A FSM script will execute one update, no matter how long it takes in total.
+- An FSM script will execute one update, no matter how long it takes in total.
 
-- A SQF script will execute until it: is done, suspends, or after it the scheduler Timer reached its limit. If the limit is reached, it will be forced to suspend.
+- An SQF script will execute until it: is done, suspends, or after it the scheduler Timer reached its limit. If the limit is reached, it will be forced to suspend.
 
 After one script was executed its “last executed time” will be updated so it can be used on the next scheduler cycle.
 
