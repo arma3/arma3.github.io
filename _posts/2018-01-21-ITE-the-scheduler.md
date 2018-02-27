@@ -14,8 +14,8 @@ When you [spawn](https://community.bistudio.com/wiki/spawn), [execVM](https://co
 
 There is one scheduler cycle per frame (`siScr` in Engine Profiler (New article to be linked here after it's written)) which happens right after the EachFrame event handlers. (Maybe future article about that)
 
-At the beginning of a scheduler cycle a Timer is started, it will be used to keep track of the scheduler time limit.
-The limit is 50ms in a loading screen and 3ms outside of a loading screen. We'll see how that's used a little further below.
+At the beginning of a scheduler cycle a timer is started, it will be used to keep track of the scheduler time limit.
+The limit is 50ms in a loading screen and 3ms otherwise. We'll see how that's used a little further below.
 
 Next up all scheduled scripts (SQF, SQS, FSM) are sorted by the time they were last executed. Meaning the script that was not processed for the longest time will land at the start of the new list.
 
@@ -24,13 +24,13 @@ Now we get to the actual execution of the scripts
 
 The engine loops through our sorted list, executing the scripts in order.
 
-Each Script type is handled a little differently:
+Each script type is handled a little differently:
 
-- A SQS script will execute until it, is done, suspends, or after it executed for a total of 3ms. If the 3ms limit is reached, it will be forced to suspend.
+- A SQS script will execute until it: is done, suspends, or after it executed for a total of 3ms. If the 3ms limit is reached it will be forced to suspend.
 
 - A FSM script will execute one update, no matter how long it takes in total.
 
-- A SQF script will execute until it, is done, suspends, or after it the scheduler Timer reached its limit. If the limit is reached, it will be forced to suspend.
+- A SQF script will execute until it: is done, suspends, or after it the scheduler Timer reached its limit. If the limit is reached, it will be forced to suspend.
 
 After one script was executed its “last executed time” will be updated so it can be used on the next scheduler cycle.
 
