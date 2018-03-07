@@ -21,6 +21,7 @@ exclude: [src, .editorconfig, .gitignore, Gemfile, Gemfile.lock, README.md]
 
 plugins:
   - jekyll-redirect-from
+  - jemoji
 
 whitelist:
   - jekyll-redirect-from

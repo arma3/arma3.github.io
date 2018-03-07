@@ -6,10 +6,16 @@ sitemap:
     exclude: "yes"
 ---
 
-<h1>arma3.github.io</h1>
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
 
 ```js
-
-private _a = "test";
-
-```
+ 
+private _a = "test"; 
+ 
+``` 
