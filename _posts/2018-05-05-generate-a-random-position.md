@@ -83,7 +83,7 @@ _position
 ```
 Note that `_radius1` and `_radius2` here denote the maximum and minimum distance of the edge of the ellipse to its center.
 
-For the sake of simplicity the discard method is used.
+For the sake of simplicity the rejection method is used.
 A random position in a rectangle is created and then the [`inArea`](https://community.bistudio.com/wiki/inArea) function checks if this position is actually in the desired ellipse.
 If not we discard our first attempt and the whole process is repeated with a new position.
 
@@ -120,7 +120,7 @@ private _position =
 
 _position
 ```
-The discard method is rather unsuitable, especially for narrow triangles, so now some linear algebra is used.
+The rejection method is rather unsuitable, especially for narrow triangles, so now some linear algebra is used.
 In addition to the origin, one only needs the 3 vertices A, B and C relative to it.
 
 It is well known that two vectors span a parallelogram. Starting from any vertex (e.g. A), you can go 0 to 1 times the direction vector to a second corner (e.g. AB), and then from there 0 to 1 times the direction vector of the first corner to the third corner (e.g. AC).
@@ -179,3 +179,51 @@ _position
 In order to obtain a uniform distribution, one should first calculate the areas and decide with the help of their relationship to each other and a random number, whether the next point ends up in e.g. the rectangle or the ring.
 
 The shapes can then be divided further with additional random numbers, or otherwise cut apart. And of course, the entire shape can be arbitrarily rotated around its origin, like we did in the example of the ellipse (7).
+
+## Stars
+The most beautiful of all geometric shapes:
+
+![https://i.imgur.com/4cBPABP.png](https://i.imgur.com/4cBPABP.png)
+
+```sqf
+// five pointed star (10)
+private _pointA = _origin getPos [_radius, 0];
+private _pointB = _origin getPos [_radius, 72];
+private _pointC = _origin getPos [_radius, 144];
+private _pointD = _origin getPos [_radius, 216];
+private _pointE = _origin getPos [_radius, 288];
+
+private _vecAC = _pointC vectorDiff _pointA;
+private _vecEB = _pointB vectorDiff _pointE;
+
+private _r =
+    (_vecEB#0 * _pointA#1 + _vecEB#1 * _pointE#0 - _vecEB#0 * _pointE#1 - _vecEB#1 * _pointA#0) /
+    (_vecEB#1 * _vecAC#0 - _vecEB#0 * _vecAC#1);
+
+private _edgeAB = _pointA vectorAdd (_vecAC vectorMultiply _r);
+
+private _edgeDistance = _edgeAB distance2D _origin;
+private _edgeAngle = _origin getDir _edgeAB;
+
+private _edgeBC = _origin getPos [_edgeDistance, _edgeAngle + 72];
+private _edgeCD = _origin getPos [_edgeDistance, _edgeAngle + 144];
+private _edgeDE = _origin getPos [_edgeDistance, _edgeAngle + 216];
+private _edgeEA = _origin getPos [_edgeDistance, _edgeAngle + 288];
+
+private "_position";
+
+while {
+    _position = _origin getPos [_radius * sqrt random 1, random 360];
+    !(_position inPolygon [
+        _pointA, _edgeAB,
+        _pointB, _edgeBC,
+        _pointC, _edgeCD,
+        _pointD, _edgeDE,
+        _pointE, _edgeEA
+    ]);
+} do {};
+
+_position
+```
+
+This utilizes the rejection method together with the [`inPolygon`](https://community.bistudio.com/wiki/inPolygon) function.
