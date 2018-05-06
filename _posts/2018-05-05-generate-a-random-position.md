@@ -1,3 +1,11 @@
+---
+title: Create A Random Position In 2D
+description: Examples of getPos and random usage.
+author: commy2
+layout: default
+category: SQF Math
+---
+
 # Create A Random Position In 2D
 _This is a translation of a tutorial I made on the German ArmaWorld forums. [Here is the link to that post](https://armaworld.de/index.php?thread/3796-zufällige-position-erzeugen/)._
 
