@@ -65,7 +65,7 @@ This way the center remains untouched.
 ## Ellipses
 It is also possible to create random positions in a (rotated) ellipse with little effort:
 
-![https://i.imgur.com/T5NuBy5.png](https://i.imgur.com/T5NuBy5.png)
+![https://i.imgur.com/O7o3yCC.png](https://i.imgur.com/O7o3yCC.png)
 
 ```sqf
 // random area ellipse (7)
@@ -93,7 +93,7 @@ This step can also be used for rectangles and other shapes.
 ## Triangles
 Of course you can also easily generate random points in any triangle:
 
-![https://i.imgur.com/LXIqtR2.png](https://i.imgur.com/LXIqtR2.png)
+![https://i.imgur.com/mplixbD.png](https://i.imgur.com/mplixbD.png)
 
 ```sqf
 // random area triangle (8)
