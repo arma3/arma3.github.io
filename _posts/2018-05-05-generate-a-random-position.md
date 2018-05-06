@@ -8,8 +8,10 @@ A random X plus a random Y will always result in a square or rectangle.
 Of course you do not realize that right away, but we all play Arma because it's so super realistic.
 Therefore, it would be annoying if our scripted artillery has an unnatural square scattering, right?!
 
-Because we do not want to reinvent the wheel every time, here is a "formulary": 
+Because we do not want to reinvent the wheel every time, here is a "formulary":
+
 ![https://i.imgur.com/3VSmKgf.png](https://i.imgur.com/3VSmKgf.png)
+
 _From left to right: 
 random radius (1) - random position in a circle (2) - [Gaussian normal distribution](https://en.wikipedia.org/wiki/Normal_distribution) (3)_
 ```sqf
@@ -32,9 +34,11 @@ The result is a perfect distribution in the circle.
 In (3) the syntax for the Gaussian normal distribution of `random` is used for the radius.
 This then gives a realistic result, as one would expect "in nature".
 
-However, since you usually do not want to bomb away your players right away, but rather create a war ambience, you can instead shoot at a position around the players. 
+However, since you usually do not want to bomb away your players right away, but rather create a war ambience, you can instead shoot at a position around the players.
+
 ![https://i.imgur.com/x1y9PUi.png](https://i.imgur.com/x1y9PUi.png)
-_From left to right: 
+
+_From left to right:
 inverted normal distribution, random radius (4) - inverted normal distribution, random position (5) - random position in ring (6)_
 ```sqf
 // inverted normal distribution, random radius (4)
@@ -60,9 +64,11 @@ This way the center remains untouched.
 
 ## Ellipses
 It is also possible to create random positions in a (rotated) ellipse with little effort:
+
 ![https://i.imgur.com/T5NuBy5.png](https://i.imgur.com/T5NuBy5.png)
+
 ```sqf
-// random area ellipse
+// random area ellipse (7)
 private "_position";
 
 while {
@@ -86,9 +92,11 @@ This step can also be used for rectangles and other shapes.
 
 ## Triangles
 Of course you can also easily generate random points in any triangle:
+
 ![https://i.imgur.com/LXIqtR2.png](https://i.imgur.com/LXIqtR2.png)
+
 ```sqf
-// random area triangle
+// random area triangle (8)
 private _posA = [-4,-2,0];
 private _posB = [4,-2,0];
 private _posC = [0,6,0];
@@ -118,3 +126,56 @@ In addition to the origin, one only needs the 3 vertices A, B and C relative to 
 It is well known that two vectors span a parallelogram. Starting from any vertex (e.g. A), you can go 0 to 1 times the direction vector to a second corner (e.g. AB), and then from there 0 to 1 times the direction vector of the first corner to the third corner (e.g. AC).
 
 If we then invert the two random multipliers for the vectors AB and AC if they are in sum greater than 1, we halve the parallelogram and get a nice triangle.
+
+## Complex Shapes
+
+Complex shapes can be composed of simple ones:
+
+![https://i.imgur.com/BJur8BE.png](https://i.imgur.com/BJur8BE.png)
+
+```sqf
+// oblong ring (9)
+private _radius1 = 2;
+private _radius2 = 1;
+private _length = 3;
+private _angle = -10;
+
+private _position = _origin;
+
+private _areaRing = pi * (_radius1^2 - _radius2^2);
+private _areaRectangles = 2 * (_radius1 - _radius2) * _length;
+
+if (random (_areaRing + _areaRectangles) > _areaRing) then {
+    // rectangle part, generate random point in rectangle
+    _position = _position vectorAdd [
+        _length * random 1,
+        (_radius1 - _radius2) * random 1,
+        0
+    ];
+
+    // pick one of the rectangles randomly
+    if (random 2 > 1) then {
+        _position = _position vectorAdd [- _length / 2, _radius2, 0];
+    } else {
+        _position = _position vectorAdd [- _length / 2, - _radius1, 0];
+    };
+} else {
+    // ring part, generate random point in ring
+    _position = _position getPos [sqrt (_radius2^2 + random (_radius1^2 - _radius2^2)), random 360];
+
+    // move right half of the ring to the right, left half to the left
+    if (_position # 0 > _origin # 0) then {
+        _position = _position vectorAdd [_length / 2, 0, 0];
+    } else {
+        _position = _position vectorAdd [- _length / 2, 0, 0];
+    };
+};
+
+// rotate shape by _angle
+_position = _origin getPos [_position distance2D _origin, (_origin getDir _position) + _angle];
+
+_position
+```
+In order to obtain a uniform distribution, one should first calculate the areas and decide with the help of their relationship to each other and a random number, whether the next point ends up in e.g. the rectangle or the ring.
+
+The shapes can then be divided further with additional random numbers, or otherwise cut apart. And of course, the entire shape can be arbitrarily rotated around its origin, like we did in the example of the ellipse (7).
