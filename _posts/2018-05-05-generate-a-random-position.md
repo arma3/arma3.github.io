@@ -183,7 +183,7 @@ The shapes can then be divided further with additional random numbers, or otherw
 ## Stars
 The most beautiful of all geometric shapes:
 
-![https://i.imgur.com/4cBPABP.png](https://i.imgur.com/4cBPABP.png)
+![https://i.imgur.com/Uzks7eH.png](https://i.imgur.com/Uzks7eH.png)
 
 ```sqf
 // five pointed star (10)
