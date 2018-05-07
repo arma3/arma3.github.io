@@ -126,13 +126,13 @@ sup {
 }
 
 a {
-  color: theme-color("primary");
+  color: #21d6ff;
   text-decoration: none;
   background-color: transparent;
   -webkit-text-decoration-skip: objects;
 }
 a:hover {
-  color: #0056b3;
+  color: #00a7cc;
   text-decoration: underline;
 }
 
@@ -161,6 +161,8 @@ pre {
   margin-bottom: 1rem;
   overflow: auto;
   -ms-overflow-style: scrollbar;
+  background-color: #373832;
+  padding: 1em;
 }
 
 figure {
@@ -345,6 +347,10 @@ main {
     max-width: 60em;
     padding: 2em;
     margin: 0 auto;
+}
+
+main img {
+    max-width: 100%;
 }
 
 /*
