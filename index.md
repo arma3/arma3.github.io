@@ -16,6 +16,19 @@ sitemap:
 
 ```js
  
-private _a = "test"; 
+private _a = getPos JSplayer; 
+ 
+``` 
+
+```sqf
+ 
+private _a = getPos SQFplayer;  
+ 
+``` 
+
+
+```cpp
+ 
+private _a = getPos CPPplayer; 
  
 ``` 
